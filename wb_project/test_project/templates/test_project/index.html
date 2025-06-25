@@ -1,0 +1,83 @@
+{% extends "test_project/base.html" %}
+{% load static %}
+{% block title %}Товары{% endblock %}
+
+{% block header %}
+    {% include 'Includes/header.html' %}
+{% endblock %}
+    
+{% block content %}
+<div class="box_analysis">
+    <div class="box_filter">
+        <div id="price-filter" 
+            data-min-price="{{ min_price|default:0 }}" 
+            data-max-price="{{ max_price|default:10000 }}">
+        </div>
+
+        <div id="rating-filter" class="rating-filter-container"
+            data-min-rating="{{ min_rating|default:0 }}" 
+            data-max-rating="{{ max_rating|default:5 }}">
+        </div>
+        
+        <div id="reviews-filter" class="reviews-filter-container"
+            data-min-reviews="{{ min_reviews|default:0 }}" 
+            data-max-reviews="{{ max_reviews|default:10000 }}">
+        </div>
+
+        <div id="sorting-container"></div>
+    </div>
+    <div class="grafics_histogram">
+
+    </div>
+    <div class="linear_graph">
+
+    </div>
+</div>
+<div class="pos">
+    <table class="table">
+        <tr>
+            <th>Название товара</th>
+            <th>Цена</th>
+            <th>Цена со скидкой</th>
+            <th>Рейтинг</th>
+            <th>Количество отзывов</th>
+        </tr>
+        <tbody>
+            {% for product in ProductList %}
+                <tr>
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.price }}</td>
+                    <td>{{ product.sale_price }}</td>
+                    <td>{{ product.rating }}</td>
+                    <td>{{ product.reviews_count }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% with request.GET.price_min as price_min %}
+{% with request.GET.price_max as price_max %}
+{% with request.GET.rating_min as rating_min %}
+{% with request.GET.reviews_min as reviews_min %}
+{% with request.GET.sort_by as sort_by %}
+{% with request.GET.sort_order as sort_order %}
+<div class="pagination">
+    {% if ProductList.has_previous %}
+        <a href="?page=1{% if price_min %}&price_min={{ price_min }}{% endif %}{% if price_max %}&price_max={{ price_max }}{% endif %}{% if rating_min %}&rating_min={{ rating_min }}{% endif %}{% if reviews_min %}&reviews_min={{ reviews_min }}{% endif %}{% if sort_by %}&sort_by={{ sort_by }}{% endif %}{% if sort_order %}&sort_order={{ sort_order }}{% endif %}">««</a>
+        <a href="?page={{ ProductList.previous_page_number }}{% if price_min %}&price_min={{ price_min }}{% endif %}{% if price_max %}&price_max={{ price_max }}{% endif %}{% if rating_min %}&rating_min={{ rating_min }}{% endif %}{% if reviews_min %}&reviews_min={{ reviews_min }}{% endif %}{% if sort_by %}&sort_by={{ sort_by }}{% endif %}{% if sort_order %}&sort_order={{ sort_order }}{% endif %}">«</a>
+    {% endif %}
+
+    <span>{{ ProductList.number }}</span>
+
+    {% if ProductList.has_next %}
+        <a href="?page={{ ProductList.next_page_number }}{% if price_min %}&price_min={{ price_min }}{% endif %}{% if price_max %}&price_max={{ price_max }}{% endif %}{% if rating_min %}&rating_min={{ rating_min }}{% endif %}{% if reviews_min %}&reviews_min={{ reviews_min }}{% endif %}{% if sort_by %}&sort_by={{ sort_by }}{% endif %}{% if sort_order %}&sort_order={{ sort_order }}{% endif %}">»</a>
+        <a href="?page={{ ProductList.paginator.num_pages }}{% if price_min %}&price_min={{ price_min }}{% endif %}{% if price_max %}&price_max={{ price_max }}{% endif %}{% if rating_min %}&rating_min={{ rating_min }}{% endif %}{% if reviews_min %}&reviews_min={{ reviews_min }}{% endif %}{% if sort_by %}&sort_by={{ sort_by }}{% endif %}{% if sort_order %}&sort_order={{ sort_order }}{% endif %}">»»</a>
+    {% endif %}
+</div>
+{% endwith %}
+{% endwith %}
+{% endwith %}
+{% endwith %}
+{% endwith %}
+{% endwith %}
+{% endblock %}

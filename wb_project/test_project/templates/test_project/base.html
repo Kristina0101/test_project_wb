@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+
+
+    {% block header %}
+    {% endblock %}
+    
+    {% block content %}
+    {% endblock %}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel" src="{% static 'js/price_filter.jsx' %}"></script>
+    <script type="text/babel" src="{% static 'js/rating_filter.jsx' %}"></script>
+    <script type="text/babel" src="{% static 'js/sorting.jsx' %}"></script>
+    <script type="text/babel" src="{% static 'js/histogram.jsx' %}"></script>
+    <script type="text/babel" src="{% static 'js/linear_chart.jsx' %}"></script>
+    <script type="text/babel" src="{% static 'js/reviews_filter.jsx' %}"></script>
+</body>
+</html>
