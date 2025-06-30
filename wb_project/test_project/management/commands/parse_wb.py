@@ -5,5 +5,5 @@ class Command(BaseCommand):
     help = "Сохраняет товары с WB в базу данных"
 
     def handle(self, *args, **options):
-        result = fetch_products_from_wb("телефон")
+        result = fetch_products_from_wb("клавиатура")
         self.stdout.write(self.style.SUCCESS(f"Успешно сохранено {len(result)} товаров"))
